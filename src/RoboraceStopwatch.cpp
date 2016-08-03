@@ -22,26 +22,40 @@ void RoboraceStopwatch::processIntersection() {
             startTime = millis();
             state = RACE;
             break;
-        case RACE:
-            lapTime = millis() - startTime;
-            state = FINISH;
+        case RACE: {
+            unsigned long lapTime = calcLapTime();
+            startTime = millis();
+            if (lapTime < bestTime || bestTime == 0) {
+                bestTime = lapTime;
+            }
             break;
+        }
         case FINISH:
             state = READY;
             break;
     }
 }
 
-void RoboraceStopwatch::displayTime() {
+void RoboraceStopwatch::displayTime() const {
     switch (state) {
         case READY:
             display->displayTime(0);
             break;
-        case RACE:
-            display->displayTime(millis() - startTime);
+        case RACE: {
+            unsigned long time = calcLapTime();
+            if (bestTime > 0 && time < BEST_TIME_SHOW_TIME) {
+                display->displayTime(bestTime);
+            } else {
+                display->displayTime(time);
+            }
             break;
+        }
         case FINISH:
-            display->displayTime(lapTime);
+            display->displayTime(bestTime);
             break;
     }
+}
+
+unsigned long RoboraceStopwatch::calcLapTime() const {
+    return millis() - startTime;
 }
