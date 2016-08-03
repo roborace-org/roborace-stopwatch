@@ -11,7 +11,7 @@ public:
 
 class AnalogSensor : public DistanceSensor {
 public:
-    static constexpr float VOLTAGE_TO_ADC_FACTOR = 5.0 / 1024;
+    static constexpr float ADC_FACTOR = 5.0 / 1024;
 
     AnalogSensor(const byte pin) : pin(pin) {
         pinMode(pin, INPUT);
@@ -19,7 +19,7 @@ public:
 
 protected:
     float getVoltage() const {
-        return analogRead(pin) * VOLTAGE_TO_ADC_FACTOR;
+        return analogRead(pin) * ADC_FACTOR;
     }
 
 private:
@@ -33,7 +33,7 @@ public:
     static const int MIN_DISTANCE = 18;
     static const int MAX_DISTANCE = 150;
 
-    Sharp(byte pin) : AnalogSensor(pin) {}
+    Sharp(const byte pin) : AnalogSensor(pin) {}
 
     short getDistance() override final {
         float voltage = AnalogSensor::getVoltage();

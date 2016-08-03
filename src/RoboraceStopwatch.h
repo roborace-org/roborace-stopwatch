@@ -2,6 +2,7 @@
 #define ROBORACE_STOPWATCH_H
 
 #include "MedianFilter.h"
+#include "Display.h"
 
 enum State {
     READY, RACE, FINISH
@@ -12,13 +13,15 @@ class RoboraceStopwatch {
 public:
     static const int DISTANCE_THRESHOLD = 5;
 
-    RoboraceStopwatch(const byte);
+    RoboraceStopwatch(const byte, Display *display);
 
     void process();
 
 private:
 
     State state = READY;
+
+    Display *display;
 
     DistanceSensor *distanceSensor;
 
@@ -38,9 +41,6 @@ private:
 
     void displayTime();
 
-    void displayTime(unsigned long time);
-
-    void display(unsigned long first, unsigned long second);
 };
 
 #endif
