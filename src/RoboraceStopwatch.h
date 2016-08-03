@@ -13,7 +13,12 @@ public:
     }
 
     void process() {
-        short distance = distanceSensor->getDistance();
+        if (isIntersect() && !intersection) {
+            intersection = true;
+            processIntersection();
+        } else {
+            intersection = false;
+        }
     }
 
 private:
@@ -21,6 +26,16 @@ private:
     DistanceSensor *distanceSensor;
 
     short freeDistance;
+
+    bool intersection = false;
+
+    bool isIntersect() const {
+        return distanceSensor->getDistance() < freeDistance;
+    }
+
+    void processIntersection() {
+
+    }
 };
 
 #endif
