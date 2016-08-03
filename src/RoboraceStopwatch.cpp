@@ -1,7 +1,7 @@
 #include "RoboraceStopwatch.h"
 
-RoboraceStopwatch::RoboraceStopwatch(const byte sharpPin, Display *display) : display(display) {
-    distanceSensor = new MedianFilter(new Sharp(sharpPin));
+RoboraceStopwatch::RoboraceStopwatch(DistanceSensor *distanceSensor, Display *display) : distanceSensor(distanceSensor),
+                                                                                         display(display) {
     freeDistance = distanceSensor->getDistance() - DISTANCE_THRESHOLD;
 }
 
