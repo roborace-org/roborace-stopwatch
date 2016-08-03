@@ -15,18 +15,17 @@ void RoboraceStopwatch::process() {
 }
 
 void RoboraceStopwatch::processIntersection() {
-    state = getNewState();
-}
-
-State RoboraceStopwatch::getNewState() const {
     switch (state) {
         case READY:
-            return RACE;
+            startTime = millis();
+            state = RACE;
+            break;
         case RACE:
-            return FINISH;
+            lapTime = millis() - startTime;
+            state = FINISH;
+            break;
         case FINISH:
-            return READY;
-        default:
-            return READY;
+            state = READY;
+            break;
     }
 }

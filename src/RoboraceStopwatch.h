@@ -26,13 +26,16 @@ private:
 
     bool intersection = false;
 
+    unsigned long startTime = 0;
+
+    unsigned long lapTime = 0;
+
     bool isIntersect() const {
         return distanceSensor->getDistance() < freeDistance;
     }
 
     void processIntersection();
 
-    State getNewState() const;
 };
 
 #endif
