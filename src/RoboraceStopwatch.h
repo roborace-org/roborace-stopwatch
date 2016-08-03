@@ -5,8 +5,11 @@
 
 class RoboraceStopwatch {
 public:
+    static const int DISTANCE_THRESHOLD = 5;
+
     RoboraceStopwatch(const byte sharp_pin) {
         distanceSensor = new MedianFilter(new Sharp(sharp_pin));
+        freeDistance = distanceSensor->getDistance() - DISTANCE_THRESHOLD;
     }
 
     void process() {
@@ -16,6 +19,8 @@ public:
 private:
 
     DistanceSensor *distanceSensor;
+
+    short freeDistance;
 };
 
 #endif

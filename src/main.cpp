@@ -5,6 +5,7 @@
 RoboraceStopwatch *roboraceStopwatch;
 
 void setup() {
+    delay(1000);
     roboraceStopwatch = new RoboraceStopwatch(SHARP_PIN);
 }
 
