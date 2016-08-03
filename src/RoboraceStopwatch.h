@@ -3,25 +3,22 @@
 
 #include "MedianFilter.h"
 
+enum State {
+    READY, RACE, FINISH
+};
+
+
 class RoboraceStopwatch {
 public:
     static const int DISTANCE_THRESHOLD = 5;
 
-    RoboraceStopwatch(const byte sharp_pin) {
-        distanceSensor = new MedianFilter(new Sharp(sharp_pin));
-        freeDistance = distanceSensor->getDistance() - DISTANCE_THRESHOLD;
-    }
+    RoboraceStopwatch(const byte);
 
-    void process() {
-        if (isIntersect() && !intersection) {
-            intersection = true;
-            processIntersection();
-        } else {
-            intersection = false;
-        }
-    }
+    void process();
 
 private:
+
+    State state = READY;
 
     DistanceSensor *distanceSensor;
 
@@ -33,9 +30,9 @@ private:
         return distanceSensor->getDistance() < freeDistance;
     }
 
-    void processIntersection() {
+    void processIntersection();
 
-    }
+    State getNewState() const;
 };
 
 #endif
