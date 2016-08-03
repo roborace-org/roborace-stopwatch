@@ -9,7 +9,7 @@ RoboraceStopwatch *roboraceStopwatch;
 void setup() {
     delay(1000);
     DistanceSensor *distanceSensor = new MedianFilter(new Sharp(SHARP_PIN));
-    roboraceStopwatch = new RoboraceStopwatch(distanceSensor, new SerialDisplay());
+    roboraceStopwatch = new RoboraceStopwatch(distanceSensor, new SerialDisplay(9600));
 }
 
 void loop() {

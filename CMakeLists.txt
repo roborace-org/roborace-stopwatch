@@ -51,6 +51,7 @@ add_executable(${PROJECT_NAME} ${SRC_LIST}
     lib/distance-sensor/DistanceSensor.h
     lib/distance-sensor/MedianFilter.h
     lib/distance-sensor/MedianFilter.cpp
+    lib/timing/Interval.h
     src/RoboraceStopwatch.h
     src/RoboraceStopwatch.cpp
 )
