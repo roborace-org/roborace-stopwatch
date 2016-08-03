@@ -36,6 +36,11 @@ private:
 
     void processIntersection();
 
+    void displayTime();
+
+    void displayTime(unsigned long time);
+
+    void display(unsigned long first, unsigned long second);
 };
 
 #endif
