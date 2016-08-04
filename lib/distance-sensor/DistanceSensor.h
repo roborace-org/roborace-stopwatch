@@ -37,9 +37,6 @@ public:
 
     short getDistance() override final {
         float voltage = AnalogSensor::getVoltage();
-        if (voltage < 0.46 || voltage > 2.8) {
-            return MAX_DISTANCE;
-        }
         short distance = (short) (60.668 * pow(voltage, -1.167));
         return constrain(distance, MIN_DISTANCE, MAX_DISTANCE);
     }
