@@ -4,6 +4,9 @@
 #include <HardwareSerial.h>
 #include "Display.h"
 
+/**
+ * Display data to serial port.
+ */
 class SerialDisplay : public Display {
 public:
     SerialDisplay(const unsigned long baud = 9600, const unsigned short interval = 200) : Display(interval) {

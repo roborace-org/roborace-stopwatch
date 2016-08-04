@@ -1,15 +1,18 @@
 #include "RoboraceStopwatch.h"
 #include "MedianFilter.h"
-#include "SerialDisplay.h"
+//#include "SerialDisplay.h"
+#include "DisplaySSD1306.h"
 
 #define SHARP_PIN A0
 
 RoboraceStopwatch *roboraceStopwatch;
 
 void setup() {
-    delay(1000);
+    delay(500);
     DistanceSensor *distanceSensor = new MedianFilter(new Sharp(SHARP_PIN));
-    roboraceStopwatch = new RoboraceStopwatch(distanceSensor, new SerialDisplay(9600));
+//    Display *display = new SerialDisplay(9600);
+    Display *display = new DisplaySSD1306();
+    roboraceStopwatch = new RoboraceStopwatch(distanceSensor, display);
 }
 
 void loop() {
