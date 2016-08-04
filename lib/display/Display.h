@@ -9,7 +9,7 @@ public:
         this->interval = new Interval(interval);
     }
 
-    virtual void displayTime(const unsigned long time) {
+    void displayTime(const unsigned long time) {
         if (interval->isReady()) {
             displaySegments(time);
         }
@@ -21,25 +21,31 @@ protected:
 private:
     Interval *interval;
 
-    void displaySegments(unsigned long time) {
+    void displaySegments(const unsigned long time) {
         unsigned long sec = time / 1000;
         if (sec < 60) {
-            byte ms = (byte) ((time % 1000) / 10);
-            displaySegments((byte) sec, ms);
+            byte ms = (byte) (time / 100 % 10);
+            displayMillis((byte) sec, ms);
         } else {
             unsigned long min = sec / 60;
             if (min < 60) {
                 sec %= 60;
-                displaySegments((byte) min, (byte) sec);
+                displaySeconds((byte) min, (byte) sec);
             } else {
                 unsigned long hour = min / 60;
                 min %= 60;
-                displaySegments((byte) hour, (byte) min);
+                displaySeconds((byte) hour, (byte) min);
             }
         }
     }
 
-    void displaySegments(byte first, byte second) {
+    void displayMillis(const byte first, const byte second) {
+        char string[4];
+        sprintf(string, "%02d.%d", first, second);
+        displayString(string);
+    }
+
+    void displaySeconds(const byte first, const byte second) {
         char string[5];
         sprintf(string, "%02d:%02d", first, second);
         displayString(string);

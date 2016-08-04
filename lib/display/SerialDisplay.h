@@ -14,7 +14,7 @@ public:
     }
 
 protected:
-    virtual void displayString(const char *string) {
+    virtual void displayString(const char *string) override final {
         Serial.println(string);
     }
 };
