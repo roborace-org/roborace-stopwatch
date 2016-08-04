@@ -3,6 +3,7 @@
 
 #include "DistanceSensor.h"
 #include "Display.h"
+#include "Timer.h"
 
 enum State {
     READY, RACE, FINISH
@@ -12,7 +13,7 @@ enum State {
 class RoboraceStopwatch {
 public:
     static const int DISTANCE_THRESHOLD = 10;
-    static const int BEST_TIME_DELAY = 2000;
+    static const int BEST_TIME_DELAY = 1000;
 
     RoboraceStopwatch(DistanceSensor *distanceSensor, Display *display);
 
@@ -30,9 +31,13 @@ private:
 
     bool intersection = false;
 
+    Timer intersectionTimer;
+
     unsigned long startTime = 0;
     unsigned long lapTime = 0;
     unsigned long bestTime = 0;
+
+    void checkIntersection();
 
     void processIntersection();
 

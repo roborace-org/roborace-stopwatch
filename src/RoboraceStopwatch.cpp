@@ -6,19 +6,27 @@ RoboraceStopwatch::RoboraceStopwatch(DistanceSensor *distanceSensor, Display *di
 }
 
 void RoboraceStopwatch::process() {
+    if (intersectionTimer.isReady()) {
+        checkIntersection();
+    }
+
+    displayTime();
+}
+
+void RoboraceStopwatch::checkIntersection() {
     short distance = distanceSensor->getDistance();
     if (distance + DISTANCE_THRESHOLD < freeDistance) {
         if (!intersection) {
             intersection = true;
             processIntersection();
+            intersectionTimer.start(100);
         }
     } else if (distance + DISTANCE_THRESHOLD / 2 > freeDistance) {
         if (intersection) {
             intersection = false;
+            intersectionTimer.start(2000);
         }
     }
-
-    displayTime();
 }
 
 void RoboraceStopwatch::processIntersection() {
