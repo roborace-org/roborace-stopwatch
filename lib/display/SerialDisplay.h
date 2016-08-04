@@ -11,11 +11,9 @@ public:
     }
 
 protected:
-    void displaySegments(unsigned long first, unsigned long second) override final {
-        Serial.print(first);
-        Serial.print(':');
-        Serial.println(second);
-    };
+    virtual void displayString(const char *string) {
+        Serial.println(string);
+    }
 };
 
 #endif

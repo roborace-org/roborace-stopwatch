@@ -16,7 +16,7 @@ public:
     }
 
 protected:
-    virtual void displaySegments(unsigned long first, unsigned long second) = 0;
+    virtual void displayString(const char *string) = 0;
 
 private:
     Interval *interval;
@@ -24,19 +24,25 @@ private:
     void displaySegments(unsigned long time) {
         unsigned long sec = time / 1000;
         if (sec < 60) {
-            unsigned long ms = (time % 1000) / 10;
-            displaySegments(sec, ms);
+            byte ms = (byte) ((time % 1000) / 10);
+            displaySegments((byte) sec, ms);
         } else {
             unsigned long min = sec / 60;
             if (min < 60) {
                 sec %= 60;
-                displaySegments(min, sec);
+                displaySegments((byte) min, (byte) sec);
             } else {
                 unsigned long hour = min / 60;
                 min %= 60;
-                displaySegments(hour, min);
+                displaySegments((byte) hour, (byte) min);
             }
         }
+    }
+
+    void displaySegments(byte first, byte second) {
+        char string[5];
+        sprintf(string, "%02d:%02d", first, second);
+        displayString(string);
     }
 };
 
