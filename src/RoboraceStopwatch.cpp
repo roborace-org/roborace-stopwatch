@@ -2,15 +2,20 @@
 
 RoboraceStopwatch::RoboraceStopwatch(DistanceSensor *distanceSensor, Display *display) : distanceSensor(distanceSensor),
                                                                                          display(display) {
-    freeDistance = distanceSensor->getDistance() - DISTANCE_THRESHOLD;
+    freeDistance = distanceSensor->getDistance();
 }
 
 void RoboraceStopwatch::process() {
-    if (isIntersect() && !intersection) {
-        intersection = true;
-        processIntersection();
-    } else {
-        intersection = false;
+    short distance = distanceSensor->getDistance();
+    if (distance + DISTANCE_THRESHOLD < freeDistance) {
+        if (!intersection) {
+            intersection = true;
+            processIntersection();
+        }
+    } else if (distance + DISTANCE_THRESHOLD / 2 > freeDistance) {
+        if (intersection) {
+            intersection = false;
+        }
     }
 
     displayTime();
@@ -23,7 +28,7 @@ void RoboraceStopwatch::processIntersection() {
             state = RACE;
             break;
         case RACE: {
-            unsigned long lapTime = calcLapTime();
+            lapTime = calcLapTime();
             startTime = millis();
             if (lapTime < bestTime || bestTime == 0) {
                 bestTime = lapTime;
@@ -43,7 +48,9 @@ void RoboraceStopwatch::displayTime() const {
             break;
         case RACE: {
             unsigned long time = calcLapTime();
-            if (bestTime > 0 && time < BEST_TIME_SHOW_TIME) {
+            if (lapTime > 0 && time < BEST_TIME_DELAY) {
+                display->displayTime(lapTime);
+            } else if (bestTime > 0 && time < 2 * BEST_TIME_DELAY) {
                 display->displayTime(bestTime);
             } else {
                 display->displayTime(time);

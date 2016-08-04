@@ -11,8 +11,8 @@ enum State {
 
 class RoboraceStopwatch {
 public:
-    static const int DISTANCE_THRESHOLD = 5;
-    static const int BEST_TIME_SHOW_TIME = 3000;
+    static const int DISTANCE_THRESHOLD = 10;
+    static const int BEST_TIME_DELAY = 2000;
 
     RoboraceStopwatch(DistanceSensor *distanceSensor, Display *display);
 
@@ -31,12 +31,8 @@ private:
     bool intersection = false;
 
     unsigned long startTime = 0;
-
+    unsigned long lapTime = 0;
     unsigned long bestTime = 0;
-
-    bool isIntersect() const {
-        return distanceSensor->getDistance() < freeDistance;
-    }
 
     void processIntersection();
 
