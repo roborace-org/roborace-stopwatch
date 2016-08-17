@@ -40,8 +40,8 @@ private:
     }
 
     void displayMillis(const byte first, const byte second) {
-        char string[4];
-        sprintf(string, "%02d.%d", first, second);
+        char string[5];
+        sprintf(string, "%02d.%02d", first, second);
         displayString(string);
     }
 
