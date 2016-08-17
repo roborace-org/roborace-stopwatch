@@ -48,6 +48,7 @@ add_custom_target(
 add_executable(${PROJECT_NAME} ${SRC_LIST}
     lib/display/Display.h
     lib/display/DisplaySSD1306.h
+    lib/display/DisplayTM1637.h
     lib/display/SerialDisplay.h
     lib/distance-sensor/DistanceSensor.h
     lib/distance-sensor/MedianFilter.h

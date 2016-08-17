@@ -24,7 +24,7 @@ private:
     void displaySegments(const unsigned long time) {
         unsigned long sec = time / 1000;
         if (sec < 60) {
-            byte ms = (byte) (time / 100 % 10);
+            byte ms = (byte) (time / 10 % 100);
             displayMillis((byte) sec, ms);
         } else {
             unsigned long min = sec / 60;
