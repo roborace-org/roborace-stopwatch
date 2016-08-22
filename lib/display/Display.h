@@ -1,7 +1,7 @@
 #ifndef ROBORACE_STOPWATCH_DISPLAY_H
 #define ROBORACE_STOPWATCH_DISPLAY_H
 
-#include "Interval.h"
+#include "Timing.h"
 
 class Display {
 public:
