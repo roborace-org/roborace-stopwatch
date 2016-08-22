@@ -1,10 +1,5 @@
 #include "RoboraceStopwatch.h"
 
-RoboraceStopwatch::RoboraceStopwatch(DistanceSensor *distanceSensor, Display *display) : distanceSensor(distanceSensor),
-                                                                                         display(display) {
-    freeDistance = distanceSensor->getDistance();
-}
-
 void RoboraceStopwatch::process() {
     if (intersectionTimer.isReady()) {
         checkIntersection();
@@ -14,14 +9,13 @@ void RoboraceStopwatch::process() {
 }
 
 void RoboraceStopwatch::checkIntersection() {
-    short distance = distanceSensor->getDistance();
-    if (distance + DISTANCE_THRESHOLD < freeDistance) {
+    if (interrupt->interrupt()) {
         if (!intersection) {
             intersection = true;
             processIntersection();
             intersectionTimer.start(100);
         }
-    } else if (distance + DISTANCE_THRESHOLD / 2 > freeDistance) {
+    } else {
         if (intersection) {
             intersection = false;
             intersectionTimer.start(2000);

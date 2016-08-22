@@ -4,6 +4,7 @@
 #include "DistanceSensor.h"
 #include "Display.h"
 #include "Timer.h"
+#include "Interrupt.h"
 
 enum State {
     READY, RACE, FINISH
@@ -12,10 +13,10 @@ enum State {
 
 class RoboraceStopwatch {
 public:
-    static const int DISTANCE_THRESHOLD = 10;
+
     static const int BEST_TIME_DELAY = 1000;
 
-    RoboraceStopwatch(DistanceSensor *distanceSensor, Display *display);
+    RoboraceStopwatch(Interrupt *interrupt, Display *display) : interrupt(interrupt), display(display) {}
 
     void process();
 
@@ -25,9 +26,7 @@ private:
 
     Display *display;
 
-    DistanceSensor *distanceSensor;
-
-    short freeDistance;
+    Interrupt *interrupt;
 
     bool intersection = false;
 
