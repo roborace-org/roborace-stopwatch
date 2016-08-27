@@ -24,9 +24,9 @@ private:
 
     State state = READY;
 
-    Display *display;
-
     Interrupt *interrupt;
+
+    Display *display;
 
     bool intersection = false;
 
