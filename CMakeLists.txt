@@ -56,6 +56,7 @@ add_executable(${PROJECT_NAME} ${SRC_LIST}
     lib/interrupt/ButtonInterrupt.h
     lib/interrupt/DistanceSensorInterrupt.h
     lib/interrupt/Interrupt.h
+    lib/interrupt/LaserInterrupt.h
     lib/timing/Timer.h
     src/RoboraceStopwatch.h
     src/RoboraceStopwatch.cpp

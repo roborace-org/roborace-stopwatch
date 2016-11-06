@@ -11,7 +11,7 @@
 class DisplayTM1637 : public Display {
 public:
     DisplayTM1637(const unsigned short interval = 50) : Display(interval) {
-        display = new TM1637Display(2, 3);
+        display = new TM1637Display(3, 4);
         display->setBrightness(0x0f);
     }
 

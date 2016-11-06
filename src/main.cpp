@@ -4,11 +4,10 @@
 #include "DisplayTM1637.h"
 
 #include "ButtonInterrupt.h"
-#include "MedianFilter.h"
-#include "DistanceSensorInterrupt.h"
+#include "LaserInterrupt.h"
 #include "Led.h"
 
-#define SHARP_PIN A0
+#define LASER_PIN 2
 #define BUTTON_PIN 5
 #define LED_PIN 13
 
@@ -24,12 +23,12 @@ Interrupt *createInterrupt() {
     if (button.read()) {
         Led led(LED_PIN);
         led.high();
-        delay(500);
+        delay(1000);
         led.low();
         delay(500);
         return new ButtonInterrupt(BUTTON_PIN);
     }
-    return new DistanceSensorInterrupt(new MedianFilter(new Sharp(SHARP_PIN)));
+    return new LaserInterrupt(LASER_PIN);
 }
 
 void setup() {
