@@ -24,6 +24,9 @@ void RoboraceStopwatch::checkIntersection() {
 }
 
 void RoboraceStopwatch::processIntersection() {
+
+    tone(8, 500, 500);
+
     switch (state) {
         case READY:
             startTime = millis();
